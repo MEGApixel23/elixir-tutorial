@@ -1,7 +1,11 @@
 defmodule Recursion do
   def run(func) do
-    IO.puts(inspect func.())
-    run(func)
+    res = func.()
+    if elem(res, 0) === :quit do
+      {:ok}
+    else
+      run(func)
+    end
   end
 end
 
@@ -12,9 +16,9 @@ Recursion.run(fn ->
   compare_input = String.replace(compare_input, " ", "")
 
   if compare_input == "quit" do
-    {:ok, 1}
+    {:quit}
   else
     IO.puts "Echo: " <> input
-    {:error, 0}
+    {:continue}
   end
 end)
