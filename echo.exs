@@ -9,16 +9,27 @@ defmodule Recursion do
   end
 end
 
+IO.puts "This app is a simple echo server. Input something here"
+
 Recursion.run(fn -> 
   input = IO.gets "> "
   
   compare_input = String.replace(String.downcase(input), "\n", "")
   compare_input = String.replace(compare_input, " ", "")
 
-  if compare_input == "quit" do
+  messages = %{
+    "hello" => "Hi there!"
+  }
+
+  if compare_input == "quit" || compare_input == "q" do
     {:quit}
   else
-    IO.puts "Echo: " <> input
+    if messages[compare_input] do
+      IO.puts messages[compare_input]
+    else
+      IO.puts "Echo: " <> input
+    end
+    
     {:continue}
   end
 end)
